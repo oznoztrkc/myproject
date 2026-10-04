@@ -1,0 +1,8 @@
+{
+  "appId": "com.digiturk.bilgiportali",
+  "appName": "Digiturk Bilgi Portalı",
+  "webDir": "dist",
+  "android": {
+    "backgroundColor": "#17102f"
+  }
+}

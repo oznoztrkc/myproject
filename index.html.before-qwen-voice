@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digiturk Bilgi Portalı</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#261154">
+    <style>
+        :root { color-scheme: light; --navy: #17133c; --purple: #5a2bad; --violet: #8252dc; --ink: #221b40; --muted: #625b78; --page: #f6f4fc; --surface: #ffffff; --soft: #f0eafc; --line: #ded6ef; --on-dark: #ffffff; --radius: 1.5rem; --space: 1rem; --shadow: 0 16px 44px rgba(34, 20, 76, .09); }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; min-height: 100svh; font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.5; background: var(--page); color: var(--ink); }
+        button, input, textarea { font: inherit; }
+        button { cursor: pointer; }
+        button:focus-visible, input:focus-visible, textarea:focus-visible, a:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
+        .topbar { position: relative; z-index: 2; background: var(--surface); border-bottom: 1px solid var(--line); }
+        .topbar-inner { max-width: 76rem; margin: auto; padding: .85rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .brand { display: inline-flex; align-items: center; gap: .7rem; color: var(--navy); font-weight: 750; font-size: 1rem; letter-spacing: -.025em; text-decoration: none; }
+        .brand-mark { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; flex: none; color: var(--on-dark); background: linear-gradient(145deg, var(--violet), var(--navy)); border-radius: .85rem; box-shadow: 0 6px 18px rgba(90, 43, 173, .25); }
+        .brand-mark svg { width: 1.4rem; height: 1.4rem; }
+        .brand small { display: block; font-size: .66rem; color: var(--purple); text-transform: uppercase; letter-spacing: .17em; line-height: 1.3; }
+        .top-label { display: none; color: var(--muted); font-size: .82rem; }
+        .container { max-width: 76rem; margin: 0 auto; padding: 1rem 1rem 7rem; }
+        .content { display: none; }
+        .content.active { display: block; }
+        .hero { position: relative; overflow: hidden; isolation: isolate; padding: clamp(1.5rem, 5vw, 4rem); border-radius: var(--radius); color: var(--on-dark); background: radial-gradient(circle at 90% 5%, rgba(214, 185, 255, .35), transparent 35%), linear-gradient(125deg, var(--navy), var(--purple) 65%, var(--violet)); box-shadow: var(--shadow); }
+        .hero:after { content: ''; position: absolute; z-index: -1; width: 18rem; height: 18rem; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; right: -6rem; top: -8rem; box-shadow: 0 0 0 3rem rgba(255,255,255,.04), 0 0 0 7rem rgba(255,255,255,.025); pointer-events: none; }
+        .eyebrow { margin: 0 0 .75rem; font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 { font-size: clamp(2rem, 7vw, 3.5rem); line-height: 1.13; letter-spacing: -.04em; margin-bottom: .6rem; }
+        h2 { font-size: clamp(1.25rem, 3vw, 1.65rem); letter-spacing: -.03em; line-height: 1.25; }
+        .hero p:not(.eyebrow) { max-width: 45ch; color: #ede4ff; margin-bottom: 0; }
+        .assistant-shell { margin: -1.25rem 1rem 0; position: relative; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+        .assistant-heading { display: flex; gap: .8rem; align-items: center; padding: 1rem 1.25rem; border-bottom: 1px solid var(--line); }
+        .assistant-avatar { display: grid; place-items: center; flex: none; width: 2.5rem; height: 2.5rem; border-radius: .9rem; color: var(--on-dark); background: linear-gradient(140deg, var(--purple), var(--violet)); font-weight: 700; }
+        .assistant-heading h2 { margin: 0; font-size: 1rem; }
+        .assistant-heading p { margin: 0; color: var(--muted); font-size: .78rem; }
+        #chatBox { display: flex; flex-direction: column; gap: .75rem; min-height: 8rem; max-height: 20rem; overflow-y: auto; padding: 1.25rem; background: var(--surface); }
+        #chatBox:empty:before { content: 'Merhaba! Bilgi Merkezi ile ilgili sorunu aşağıya yazabilirsin.'; display: block; align-self: flex-start; max-width: 38ch; padding: .85rem 1.1rem; border-radius: 1.1rem 1.1rem 1.1rem .3rem; background: var(--soft); color: var(--ink); }
+        .msg { max-width: min(85%, 38rem); padding: .85rem 1.1rem; border-radius: 1.1rem; overflow-wrap: anywhere; white-space: pre-wrap; }
+        .msg.user { align-self: flex-end; color: var(--on-dark); background: linear-gradient(120deg, var(--purple), var(--violet)); border-bottom-right-radius: .3rem; }
+        .msg.bot { align-self: flex-start; background: var(--soft); color: var(--ink); border-bottom-left-radius: .3rem; }
+        .input-area { display: flex; align-items: stretch; gap: .6rem; padding: 1rem 1.25rem; border-top: 1px solid var(--line); }
+        .input-area input { flex: 1; min-width: 0; padding: .8rem 1rem; background: var(--page); color: var(--ink); border: 1px solid var(--line); border-radius: .85rem; }
+        .input-area input::placeholder { color: var(--muted); }
+        .input-area button, .btn { border: 0; border-radius: .85rem; color: var(--on-dark); background: var(--purple); font-weight: 700; padding: .8rem 1.15rem; }
+        .input-area button:hover, .btn:hover { background: var(--navy); }
+        .section { margin-top: 2.5rem; }
+        .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: .75rem; margin-bottom: 1rem; }
+        .section-head h2 { margin: 0; }
+        .section-head span { color: var(--muted); font-size: .8rem; }
+        .highlights { display: grid; gap: 1rem; }
+        .employee { position: relative; min-height: 13rem; display: flex; align-items: center; gap: 1rem; overflow: hidden; background: radial-gradient(circle at 95% 10%, rgba(220,193,255,.36), transparent 40%), linear-gradient(130deg, var(--navy), var(--purple)); color: var(--on-dark); }
+        .employee:after { content: '✦'; position: absolute; top: .5rem; right: 1rem; color: #e9d4ff; font-size: 3rem; opacity: .8; }
+        .photo-placeholder { display: grid; place-items: center; width: 5rem; height: 5rem; flex: none; border-radius: 1.4rem; border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.14); font-size: 2rem; }
+        .employee p { color: #e7dcff; margin: 0; font-size: .9rem; }
+        .announcement-track { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: .4rem; }
+        .announcement-track > * { flex: 0 0 min(100%, 24rem); scroll-snap-align: start; }
+        .surface-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; box-shadow: var(--shadow); }
+        .surface-card h3 { margin-bottom: .4rem; }
+        .surface-card p { color: var(--muted); margin: 0; }
+        .tile-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+        .tile { position: relative; aspect-ratio: 3 / 4; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; text-align: left; color: var(--ink); border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface); padding: 1rem; box-shadow: var(--shadow); }
+        .tile:hover { border-color: var(--violet); transform: translateY(-3px); }
+        .tile-icon { width: 2.6rem; height: 2.6rem; display: grid; place-items: center; border-radius: .9rem; background: var(--soft); color: var(--purple); font-size: 1.25rem; }
+        .tile strong { font-size: clamp(.94rem, 2vw, 1.2rem); line-height: 1.2; }
+        .tile small { display: block; color: var(--muted); font-size: .75rem; margin-top: .35rem; }
+        .tile-arrow { margin-top: .6rem; color: var(--purple); }
+        .detail { max-width: 52rem; margin: 1rem auto; }
+        .back { border: 0; background: transparent; color: var(--purple); font-weight: 700; padding: .5rem 0; margin-bottom: 1rem; }
+        .empty-state { text-align: center; padding: 2.5rem 1.25rem; color: var(--muted); background: var(--soft); border-radius: 1.1rem; }
+        .empty-state strong { display: block; color: var(--ink); margin-bottom: .35rem; }
+        .module-search { width: 100%; padding: .85rem 1rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: .85rem; margin: .5rem 0 1rem; }
+        .admin-area { max-width: 52rem; margin: 1rem auto; }
+        .admin-area textarea { display: block; width: 100%; min-height: 15rem; padding: 1rem; margin: 1rem 0; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 1rem; resize: vertical; }
+        .admin-area .btn { width: 100%; }
+        .status { margin: .8rem 0 0; color: var(--purple); display: none; }
+        .bottom-nav { position: fixed; z-index: 5; bottom: 0; left: 0; right: 0; display: flex; justify-content: space-around; gap: .25rem; background: var(--surface); border-top: 1px solid var(--line); padding: .5rem max(.5rem, env(safe-area-inset-right)) calc(.5rem + env(safe-area-inset-bottom)) max(.5rem, env(safe-area-inset-left)); box-shadow: 0 -8px 30px rgba(34,20,76,.08); }
+        .tab { flex: 1; border: 0; background: transparent; color: var(--muted); padding: .45rem .2rem; border-radius: .75rem; font-size: .72rem; font-weight: 700; }
+        .tab span { display: block; font-size: 1.25rem; line-height: 1.3; }
+        .tab.active { background: var(--soft); color: var(--purple); }
+        @media (min-width: 44rem) { .container { padding: 1.5rem 2rem 3rem; } .topbar-inner { padding: 1rem 2rem; } .top-label { display: block; } .assistant-shell { margin: -1.75rem 2rem 0; } .highlights { grid-template-columns: 1fr 1fr; } .tile-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; } .bottom-nav { position: static; max-width: 76rem; margin: auto; border: 0; box-shadow: none; justify-content: flex-end; padding: 0 2rem .75rem; } .tab { flex: 0 1 9rem; } }
+        @media (min-width: 70rem) { .tile-grid { grid-template-columns: repeat(7, minmax(0, 1fr)); } }
+        @media (prefers-color-scheme: dark) { :root { color-scheme: dark; --ink: #f4efff; --muted: #c9bfe0; --page: #100e24; --surface: #201a39; --soft: #30264c; --line: #4e406b; --purple: #aa82f3; --navy: #291a52; --shadow: 0 16px 44px rgba(0,0,0,.24); } .hero, .employee { background: linear-gradient(125deg, #291a52, #513087 70%, #7451ae); } .brand { color: var(--ink); } .input-area button, .btn { background: #6940ae; } .input-area button:hover, .btn:hover { background: #513087; } .tile-arrow, .back { color: #c3a4ff; } }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .tile { transition: none; } }
+        @media (prefers-reduced-motion: no-preference) { .tile { transition: transform .18s ease, border-color .18s ease; } }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <div class="topbar-inner"><a class="brand" href="/" aria-label="Digiturk Bilgi Portalı ana sayfa"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h12M4 17h8"/><circle cx="18" cy="17" r="2"/></svg></span><span><small>Digiturk</small>Bilgi Portalı</span></a><span class="top-label">Bilgiye ulaşmanın en kolay yolu</span></div>
+</header>
+
+<div class="tabs bottom-nav" role="navigation" aria-label="Ana menü">
+    <button type="button" class="tab active" onclick="openTab(event, 'chat')"><span aria-hidden="true">⌂</span>Ana sayfa</button>
+    <button type="button" class="tab" onclick="openTab(event, 'admin')"><span aria-hidden="true">▤</span>Bilgi Merkezi</button>
+</div>
+
+<main class="container">
+    <div id="chat" class="content active">
+        <section class="hero" aria-labelledby="hero-title"><p class="eyebrow">DİGİTURK / BİLGİ PORTALI</p><h1 id="hero-title">Ne merak ediyorsun?</h1><p>Bilgi Asistanı ile aradığın bilgiye kolayca ulaş.</p></section>
+        <section class="assistant-shell" aria-labelledby="assistant-title">
+            <div class="assistant-heading"><span class="assistant-avatar" aria-hidden="true">✦</span><div><h2 id="assistant-title">Bilgi Asistanı</h2><p>Bir soru sorarak başlayabilirsin</p></div></div>
+            <div id="chatBox" role="log" aria-live="polite" aria-label="Sohbet mesajları"></div>
+            <div class="input-area"><input type="text" id="userInput" aria-label="Bilgi Asistanına sorunuz" placeholder="Örneğin, nakil ücreti ne kadar?" onkeypress="if(event.key === 'Enter') sendMessage()"><button type="button" aria-label="Soruyu gönder" onclick="sendMessage()">Gönder</button></div>
+        </section>
+        <div class="highlights section">
+            <section class="surface-card employee" aria-labelledby="employee-title"><div class="photo-placeholder" aria-hidden="true">◇</div><div><p class="eyebrow">EKİBİMİZDEN</p><h2 id="employee-title">Ayın Elemanı</h2><p>Bu ay için henüz bir profil paylaşılmadı.</p></div></section>
+            <section aria-labelledby="announcements-title"><div class="section-head"><h2 id="announcements-title">Duyurular</h2><span>Güncel bilgiler</span></div><div class="announcement-track"><article class="surface-card"><h3>Henüz duyuru yok</h3><p>Yeni duyurular burada görüntülenecek.</p></article></div></section>
+        </div>
+        <section class="section" aria-labelledby="explore-title"><div class="section-head"><h2 id="explore-title">Keşfet</h2><span>Bilgi alanları</span></div><div class="tile-grid">
+            <button class="tile" type="button" onclick="showModule('Bilgi Kartları')"><span class="tile-icon" aria-hidden="true">▧</span><span><strong>Bilgi Kartları</strong><small>Bilgi içerikleri</small><span class="tile-arrow" aria-hidden="true">↗</span></span></button>
+            <button class="tile" type="button" onclick="showModule('İş Akışları')"><span class="tile-icon" aria-hidden="true">⇄</span><span><strong>İş Akışları</strong><small>Süreç rehberleri</small><span class="tile-arrow" aria-hidden="true">↗</span></span></button>
+            <button class="tile" type="button" onclick="showModule('Paketler')"><span class="tile-icon" aria-hidden="true">▣</span><span><strong>Paketler</strong><small>Paket bilgileri</small><span class="tile-arrow" aria-hidden="true">↗</span></span></button>
+            <button class="tile" type="button" onclick="showModule('Finans Kayıtları')"><span class="tile-icon" aria-hidden="true">◈</span><span><strong>Finans Kayıtları</strong><small>Finans bilgileri</small><span class="tile-arrow" aria-hidden="true">↗</span></span></button>
+            <button class="tile" type="button" onclick="showModule('Scriptlerimiz')"><span class="tile-icon" aria-hidden="true">✎</span><span><strong>Scriptlerimiz</strong><small>Konuşma metinleri</small><span class="tile-arrow" aria-hidden="true">↗</span></span></button>
+            <button class="tile" type="button" onclick="showModule('Nasıl Yapılır?')"><span class="tile-icon" aria-hidden="true">?</span><span><strong>Nasıl Yapılır?</strong><small>Yardım rehberleri</small><span class="tile-arrow" aria-hidden="true">↗</span></span></button>
+            <button class="tile" type="button" onclick="document.getElementById('userInput').focus()"><span class="tile-icon" aria-hidden="true">✦</span><span><strong>Bilgi Asistanı</strong><small>Soru sor</small><span class="tile-arrow" aria-hidden="true">↗</span></span></button>
+        </div></section>
+    </div>
+    <div id="module" class="content detail"><button type="button" class="back" onclick="openTab(null, 'chat')">← Ana sayfaya dön</button><section aria-labelledby="module-title"><p class="eyebrow">BİLGİ PORTALI</p><h1 id="module-title"></h1><input id="module-search" class="module-search" aria-label="İçerik ara" placeholder="Bu alanda ara…" oninput="filterModule()"><div id="module-results" class="tile-grid"></div><p id="module-empty" class="empty-state" role="status"><strong>Henüz içerik bulunmuyor</strong>Bu alanda yayımlanmış bir içerik henüz yok.</p></section></div>
+    <div id="detail" class="content detail"><button type="button" class="back" onclick="openTab(null, 'module')">← Kartlara dön</button><article class="surface-card"><p class="eyebrow" id="detail-category"></p><h1 id="detail-title"></h1><p id="detail-content"></p></article></div>
+    <div id="admin" class="content admin-area"><section class="surface-card"><p class="eyebrow">BİLGİ PORTALI</p><h1>Bilgi Merkezi</h1><p>Bilgi metinlerini buradan yönetebilirsin.</p><label for="knowledgeBase">Bilgi metni</label><textarea id="knowledgeBase" placeholder="Bilgi metnini buraya yapıştır..."></textarea><button type="button" class="btn" onclick="saveData()">Verileri Kaydet ve Eğit</button><p id="statusMsg" class="status" role="status">Bilgiler kaydedildi ve AI hazır!</p></section></div>
+</main>
+
+<script>
+    window.onload = () => {
+        localStorage.removeItem('apiKey');
+        document.getElementById('knowledgeBase').value = localStorage.getItem('knowledgeBase') || '';
+    };
+
+    function openTab(evt, tabName) {
+        var i, content, tabs;
+        content = document.getElementsByClassName("content");
+        for (i = 0; i < content.length; i++) {
+            content[i].classList.remove("active");
+        }
+        tabs = document.getElementsByClassName("tab");
+        for (i = 0; i < tabs.length; i++) {
+            tabs[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        if (evt) evt.currentTarget.classList.add("active");
+        else document.querySelector(tabName === 'chat' ? '.tab:first-child' : '.tab:last-child')?.classList.add('active');
+    }
+
+    let moduleItems = [];
+    const moduleQueries = { 'Bilgi Kartları': '', 'İş Akışları': 'nakil dönüşüm aktivasyon arıza', 'Paketler': 'paket', 'Finans Kayıtları': 'finans', 'Scriptlerimiz': 'script', 'Nasıl Yapılır?': 'nasıl yapılır' };
+
+    async function showModule(name) {
+        openTab(null, 'module');
+        document.getElementById('module-title').textContent = name;
+        document.getElementById('module-search').value = '';
+        moduleItems = [];
+        renderModule();
+        if (moduleQueries[name]) await filterModule();
+    }
+
+    async function filterModule() {
+        const query = document.getElementById('module-search').value.trim() || moduleQueries[document.getElementById('module-title').textContent];
+        const empty = document.getElementById('module-empty');
+        if (!query) { moduleItems = []; renderModule(); return; }
+        empty.textContent = 'Yayımlanmış içerikler aranıyor…';
+        empty.hidden = false;
+        try {
+            const response = await fetch('/api/knowledge/search', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ query, limit: 20 }) });
+            if (!response.ok) throw new Error('Arama yapılamadı. Lütfen tekrar deneyin.');
+            const results = await response.json();
+            moduleItems = results.filter(result => result.item?.status === 'Published').map(result => result.item);
+            renderModule();
+        } catch (error) {
+            moduleItems = [];
+            renderModule();
+            empty.textContent = error.message;
+            empty.hidden = false;
+        }
+    }
+
+    function renderModule() {
+        const grid = document.getElementById('module-results');
+        const empty = document.getElementById('module-empty');
+        grid.replaceChildren();
+        empty.hidden = moduleItems.length > 0;
+        if (!moduleItems.length) empty.innerHTML = '<strong>Henüz içerik bulunmuyor</strong>Bu aramayla eşleşen yayımlanmış içerik yok.';
+        moduleItems.forEach((item, index) => {
+            const card = document.createElement('button');
+            card.type = 'button';
+            card.className = 'tile';
+            const icon = document.createElement('span');
+            icon.className = 'tile-icon';
+            icon.setAttribute('aria-hidden', 'true');
+            icon.textContent = '▧';
+            const info = document.createElement('span');
+            const title = document.createElement('strong');
+            title.textContent = item.title;
+            const summary = document.createElement('small');
+            summary.textContent = item.content.slice(0, 95);
+            const tags = document.createElement('small');
+            tags.textContent = item.keywords.join(' · ');
+            info.append(title, summary, tags);
+            card.append(icon, info);
+            card.addEventListener('click', () => showDetail(index));
+            grid.append(card);
+        });
+    }
+
+    function showDetail(index) {
+        const item = moduleItems[index];
+        if (!item) return;
+        document.getElementById('detail-category').textContent = item.keywords.join(' · ');
+        document.getElementById('detail-title').textContent = item.title;
+        document.getElementById('detail-content').textContent = item.content;
+        openTab(null, 'detail');
+    }
+
+    function saveData() {
+        const data = document.getElementById('knowledgeBase').value;
+
+        if (!data) {
+            alert("Lütfen bilgi metnini girin.");
+            return;
+        }
+
+        localStorage.removeItem('apiKey');
+        localStorage.setItem('knowledgeBase', data);
+        
+        const status = document.getElementById('statusMsg');
+        status.style.display = 'block';
+        setTimeout(() => { status.style.display = 'none'; }, 3000);
+    }
+
+    function addMessage(text, sender) {
+        const chatBox = document.getElementById('chatBox');
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `msg ${sender}`;
+        msgDiv.innerText = text;
+        chatBox.appendChild(msgDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('userInput');
+        const userText = input.value;
+        const knowledge = localStorage.getItem('knowledgeBase');
+
+        if (!userText) return;
+        if (!knowledge) {
+            addMessage("Lütfen önce 'Bilgi Merkezi' sekmesinden veri girişi yapın.", 'bot');
+            return;
+        }
+
+        addMessage(userText, 'user');
+        input.value = '';
+
+        const systemPrompt = `Sen bir bilgi asistanısın. Aşağıda verilen "BİLGİ MERKEZİ" verilerini kullanarak kullanıcıya cevap vereceksin.
+        
+        BİLGİ MERKEZİ:
+        """
+        ${knowledge}
+        """
+        
+        KURALLAR:
+        1. Sadece yukarıdaki metinde geçen bilgileri kullan.
+        2. Eğer cevap metinde yoksa, kibarca "Bu bilgi elimdeki kaynaklarda mevcut değil" de.
+        3. Türkçe konuş, samimi ve yardımcı ol.
+        4. Kullanıcı gündelik dilde sorsa bile niyetini anlayıp metindeki ilgili kısmı bul.`;
+
+        try {
+            addMessage("Düşünüyorum...", 'bot');
+            const loadingMsg = document.querySelector('.msg.bot:last-child');
+
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: "gpt-4o-mini",
+                    messages: [
+                        { role: "system", content: systemPrompt },
+                        { role: "user", content: userText }
+                    ],
+                    temperature: 0.7
+                })
+            });
+
+            const data = await response.json();
+            loadingMsg.remove();
+
+            if (data.error) {
+                addMessage("Hata: " + data.error.message, 'bot');
+            } else {
+                const aiResponse = data.choices[0].message.content;
+                addMessage(aiResponse, 'bot');
+            }
+        } catch (error) {
+            document.querySelector('.msg.bot:last-child')?.remove();
+            addMessage("Bağlantı hatası oluştu.", 'bot');
+        }
+    }
+</script>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+    }
+</script>
+
+</body>
+</html>

@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digiturk Bilgi Portalı</title>
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <meta name="theme-color" content="#17102f">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link rel="icon" type="image/svg+xml" href="portal-icon.svg">
+    <link rel="icon" type="image/svg+xml" href="/portal-icon.svg">
 
     <style>
         body > :not(#portal-root):not(script) { visibility: hidden; }
@@ -422,7 +421,7 @@
 
 <header>
     <div class="header-title">🤖 AI Bilgi Asistanı</div>
-    <button class="install-btn" id="installBtn" type="button">📲 Uygulamayı Yükle</button>
+    <button class="install-btn" id="installBtn" style="display:none;">📥 Yükle</button>
 </header>
 
 <div class="container">
@@ -511,7 +510,169 @@
 
 </div>
 
+<!-- Yükleme Modal -->
+
+<div class="modal-overlay" id="installModal">
+
+    <div class="modal">
+
+        <h2>📱 Uygulamayı Yükle</h2>
+
+        <p id="installText">
+            Uygulamayı ana ekranına eklemek için:
+        </p>
+
+        <ol id="installSteps">
+            <li>
+                Sağ üstteki <b>⋮</b> menüsüne tıkla
+            </li>
+
+            <li>
+                <b>"Ana ekrana ekle"</b> veya
+                <b>"Uygulamayı yükle"</b> seç
+            </li>
+
+            <li>
+                <b>"Ekle"</b> butonuna bas
+            </li>
+        </ol>
+
+        <button onclick="closeInstallModal()">
+            Anladım
+        </button>
+
+        <button
+            class="close-btn"
+            onclick="closeInstallModal()"
+        >
+            Kapat
+        </button>
+
+    </div>
+
+</div>
+
 <script>
+
+    /* =========================================
+       PWA YÜKLEME DESTEĞİ
+    ========================================= */
+
+    let deferredPrompt;
+
+    const installBtn =
+        document.getElementById('installBtn');
+
+    const installModal =
+        document.getElementById('installModal');
+
+    window.addEventListener(
+        'beforeinstallprompt',
+        (e) => {
+
+            e.preventDefault();
+
+            deferredPrompt = e;
+
+            installBtn.style.display = 'block';
+
+        }
+    );
+
+    installBtn.addEventListener(
+        'click',
+        async () => {
+
+            if (deferredPrompt) {
+
+                deferredPrompt.prompt();
+
+                const { outcome } =
+                    await deferredPrompt.userChoice;
+
+                if (outcome === 'accepted') {
+                    installBtn.style.display = 'none';
+                }
+
+                deferredPrompt = null;
+
+            } else {
+
+                showInstallModal();
+
+            }
+
+        }
+    );
+
+    function showInstallModal() {
+
+        const isIOS =
+            /iPad|iPhone|iPod/.test(
+                navigator.userAgent
+            );
+
+        const steps =
+            document.getElementById(
+                'installSteps'
+            );
+
+        const text =
+            document.getElementById(
+                'installText'
+            );
+
+        if (isIOS) {
+
+            text.innerText =
+                'iPhone/iPad\'da uygulamayı yüklemek için:';
+
+            steps.innerHTML = `
+                <li>
+                    Alt ortadaki <b>Paylaş</b> butonuna tıkla
+                </li>
+
+                <li>
+                    Aşağı kaydır ve
+                    <b>"Ana Ekrana Ekle"</b> seç
+                </li>
+
+                <li>
+                    Sağ üstten <b>"Ekle"</b> de
+                </li>
+            `;
+
+        } else {
+
+            text.innerText =
+                'Android\'de uygulamayı yüklemek için:';
+
+            steps.innerHTML = `
+                <li>
+                    Sağ üstteki <b>⋮</b> menüsüne tıkla
+                </li>
+
+                <li>
+                    <b>"Ana ekrana ekle"</b> veya
+                    <b>"Uygulamayı yükle"</b> seç
+                </li>
+
+                <li>
+                    <b>"Ekle"</b> butonuna bas
+                </li>
+            `;
+
+        }
+
+        installModal.classList.add('active');
+    }
+
+    function closeInstallModal() {
+
+        installModal.classList.remove('active');
+
+    }
+
 
     /* =========================================
        SAYFA YÜKLENDİĞİNDE
@@ -1043,7 +1204,7 @@
     ) {
 
         navigator.serviceWorker
-            .register(new URL('sw.js', document.baseURI).href)
+            .register('sw.js')
             .catch(
                 error => {
 

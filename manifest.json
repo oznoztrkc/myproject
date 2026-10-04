@@ -1,0 +1,15 @@
+{
+  "name": "Digiturk Bilgi Portalı",
+  "short_name": "Digiturk Bilgi",
+  "description": "Digiturk Bilgi Portalı",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#17102f",
+  "theme_color": "#17102f",
+  "icons": [
+    { "src": "portal-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "portal-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

@@ -1,0 +1,394 @@
+NAKİL İŞLEMLERİ PROSEDÜRÜ
+1. Nakil İşlemi Genel Esasları
+Nakil, Broadband, tekil İnternet veya Uydu hizmetinin mevcut adresten yeni bir adrese taşınması işlemidir.
+
+Nakil talepleri yalnızca üye ile görüşülerek çağrı içerisinde alınır.
+
+İşlem öncesinde üyeden 3 güvenlik bilgisi alınmalıdır.
+
+Yeni adresin altyapısı BBK üzerinden mutlaka kontrol edilmelidir.
+
+Nakil için ön sipariş işlemi bulunmamaktadır.
+
+Tüm nakil işlemleri ücretlidir ve işlem öncesinde üyeye ücret bilgisi verilmelidir.
+
+Teknik servis hizmeti, hem İnternet hem Uydu nakillerinde gereklidir.
+
+Nakil başlatıldığında İnternet nakli için DIGI_ISP_NAKIL akışı otomatik olarak başlar.
+
+İşlem sırasında hata alınması halinde 712 – Nakil Adres Değişikliği kaydı açılmalıdır.
+
+Nakil Süreleri
+HizmetTamamlanma Süresi
+Uydu nakli24–48 saat
+İnternet nakli7 iş günü
+
+İnternet nakli süresince hizmet alınamayan günler, takip eden faturada İnternet hizmetinden düşülür.
+
+2. Nakil Ücretleri
+İnternet Nakil Ücreti
+İnternet nakil ücreti: 1.150 TL
+
+Ücret 12 taksit halinde faturaya yansıtılır.
+
+Nakil başarıyla tamamlandığında faturalandırma yapılır.
+
+Taksitler tamamlanmadan üyelik iptal edilirse kalan taksitler son faturaya yansıtılır.
+
+Uydu Nakil Ücreti
+Uydu nakil hizmet bedeli: 700 TL
+
+Başarılı nakil sonrasında çıkacak ilk faturaya tek seferde yansıtılır.
+
+Üyenin kendi Digiturk onaylı çanağı veya binada merkezi sistem bulunması halinde yalnızca 700 TL hizmet bedeli uygulanır.
+
+Üyeye çanağın Digiturk'e ait olup olmadığı mutlaka sorulmalıdır.
+
+Daire içi kurulum yapılsa dahi ilgili iç kurulum ücreti uygulanır.
+
+Yeni Çanak Gerekiyorsa
+KurulumToplam ÜcretFaturaya YansıyanNakit
+Universal LNB3.361 TL700 TL2.661 TL
+DMDU LNB5.071 TL700 TL4.371 TL
+
+Universal LNB: 80–90 cm çanak seti, 20 m kablo, bireysel LNB, 2 konnektör ve dış kurulum işçiliği dahildir.
+
+DMDU LNB: Çanak seti, ayak, 20 m kablo, DMDU LNB, 2 konnektör ve dış kurulum işçiliği dahildir.
+
+Standart ve HD kutular Universal LNB ile kullanılabilir.
+
+Plus, Sagem ve 4K PVR kutular için MDU 5 LNB kullanılmalıdır.
+
+30 km üzerindeki mesafelerde, gidiş-dönüş toplam mesafeden 30 km düşülerek km başına 7,20 TL uygulanır.
+
+3. Nakil Öncesi Altyapı Kontrolü
+Nakil talebi alınmadan önce yeni adresin altyapısı BBK üzerinden kontrol edilmelidir.
+
+Aşağıdaki durumlarda üyenin cayma bedelsiz iptal hakkı bulunabilir:
+
+Yeni adreste altyapı bulunmaması
+
+Boş port bulunmaması
+
+Mevcut hızın sağlanamaması veya daha düşük hız sunulması
+
+Üyenin mevcut hız/fiyat koşullarını kabul etmemesi
+
+Nakil sonucunda hizmetin verilememesi
+
+Bu durumda üye iptal talep ederse, yeni adrese taşındığını gösteren ikametgâh belgesi ile cayma bedelsiz iptal süreci başlatılmalıdır.
+
+4. İnternet Nakil İşlemleri
+İnternetli üyelerde nakil talebi alınırken mevcut hizmet kapsamındaki gerekli ürünlerin tamamı için işlem yapılmalıdır.
+
+Aynı Altyapı + Aynı Paket
+Yeni adreste aynı altyapı ve aynı paket kullanılacaksa nakil paket ekranında yeniden paket eklenmesine gerek yoktur.
+
+DSL → DSL
+Altyapının;
+
+ADSL → VDSL
+
+VDSL → VDSL+
+
+VDSL/VDSL+ → farklı DSL altyapısı
+
+şeklinde değişmesi durumunda uygun İnternet paketi mutlaka eklenmelidir.
+
+Paket seçiminde NOR/YLN ayrımına dikkat edilmelidir.
+
+Fiber → DSL
+Yeni adres DSL altyapısındaysa uygun xDSL paketi eklenmelidir.
+
+DSL → Fiber
+Yeni adres Fiber altyapısındaysa uygun Fiber paket tanımlanmalıdır.
+
+35 Mbps altında hız kullanan üyelerde minimum 35 Mbps tanımlanır.
+
+Güncel kampanyalarda kampanya kodu altyapı nedeniyle değişmiyorsa mevcut kampanya üzerinden devam edilir.
+
+Eski kampanyalarda Fiber/DSL kampanya kodları farklıysa kampanya değişikliği ve yeni taahhüt bilgisi üyeye açık şekilde aktarılmalıdır.
+
+5. Fiber → Fiber Nakil
+Fiber kullanan ve yeni adresinde de Fiber altyapısı bulunan üyelerde:
+
+Normal nakil süreci uygulanır.
+
+Kampanya kodu değiştirilmez.
+
+Kampanya/taahhüt değişikliği yapılmaz.
+
+35 Mbps altında hız kullanan üyeye yeni adreste minimum 35 Mbps tanımlanır.
+
+Eski Fiber modem, üyeye gönderilen SMS doğrultusunda MNG/DHL kargo üzerinden iade edilmelidir.
+
+Hata alınması halinde 712 – Nakil Adres Değişikliği kaydı açılır.
+
+6. Fiber → DSL Nakil
+Yeni adres DSL altyapısındaysa:
+
+Güncel kampanyalarda kampanya kodu değişmeden işlem yapılır.
+
+Eski Fiber modem, SMS doğrultusunda MNG/DHL kargo ile iade edilir.
+
+Eski kampanyalarda Fiber/DSL kampanya kodları farklıysa kampanya değişikliği ve yeni taahhüt bilgisi üyeye bildirilmelidir.
+
+Uygun DSL paketi tanımlanmalıdır.
+
+Hata alınması halinde 712 – Nakil Adres Değişikliği kaydı açılır.
+
+7. DSL → Fiber Nakil
+Yeni adres Fiber altyapısındaysa:
+
+Minimum hız 35 Mbps olmalıdır.
+
+Güncel kampanyalarda kampanya kodu değişmiyorsa mevcut kampanya üzerinden işlem yapılır.
+
+Eski DSL modem en yakın Digiturk bayisine teslim edilmelidir.
+
+Kampanya kodu altyapıya göre değişen eski kampanyalarda yeni kampanya ve taahhüt bilgileri üyeye eksiksiz aktarılmalıdır.
+
+Bundle üyeliklerde gerekli durumda Bundle seçeneği işaretlenerek Uydu + İnternet kampanyası birlikte tanımlanmalıdır.
+
+Tekil İnternet üyeliklerinde uygun Mevcut Üye Tekil İnternet Satış Kampanyası kullanılmalıdır.
+
+Hata alınması halinde 712 – Nakil Adres Değişikliği kaydı açılır.
+
+8. Cayma Bedelsiz İptal
+Nakil Başlatılmadan Önce
+Aşağıdaki durumlarda üye cayma bedelsiz iptal talep edebilir:
+
+Altyapı bulunmaması
+
+Boş port bulunmaması
+
+Mevcut hızın sağlanamaması
+
+Daha düşük hız sunulması
+
+Hız/fiyat değişikliğinin üye tarafından kabul edilmemesi
+
+İptal için ikametgâh belgesi ile gerekli süreç başlatılmalıdır.
+
+Nakil Başlatıldıktan Sonra
+Aşağıdaki durumlarda da cayma bedelsiz iptal hakkı oluşabilir:
+
+Ankastrenin uygun olmaması
+
+Kablo çekilememesi
+
+Teknik servis kaynaklı kurulum yapılamaması
+
+Sürecin 10 gün veya daha fazla uzaması
+
+Önemli
+İnternetini altyapı nedeniyle iptal eden ancak Uydu hizmetini kullanmaya devam etmek isteyen üyenin önce evraklı İnternet iptal sürecini tamamlaması gerekir.
+
+İnternet iptal süreci tamamlanmadan Uydu nakil talebi karşılanmamalı ve yeni kayıt açılmamalıdır.
+
+9. Uydu Nakil ve Cayma Bedelsiz İptal
+Uydu naklinin yeni adreste “Altyapı Yetersiz” nedeniyle gerçekleştirilememesi halinde, gerekli şartların sağlanması durumunda taahhüt cezası uygulanmaz.
+
+Şartlar:
+
+Teknik servis 333 memosunu “Altyapı Yetersiz” koduyla kapatmış olmalıdır.
+
+Üyenin altyapı yetersizliği nedeniyle iptal talebi bulunmalıdır.
+
+Son 90 gün içerisinde ilgili nakil kaydı/333 memo şartları sağlanmalıdır.
+
+Bu şartlar karşılanıyorsa paket ve kurulum taahhüt bedeli yansıtılmaz.
+
+10. Bundle Üyeliklerde Ürün Ayrılması
+İnternet İptali Sonrası Tekil Uydu
+Bundle üyelikte İnternet altyapı nedeniyle iptal edilecek ve Uydu kullanılmaya devam edecekse:
+
+Evraklı İnternet iptal süreci tamamlanmalıdır.
+
+DIGI_ISP_NAKIL case'inin geçerli şekilde kapandığı kontrol edilmelidir.
+
+Evrak eksik/geçersiz ise üyeye gerekli bilgi verilmelidir.
+
+İnternet iptali tamamlandıktan sonra Uydu nakil işlemi Uydu ekipleri tarafından yürütülür.
+
+DIGI_ISP_NAKIL case'i kapanmadan Uydu nakil talebi karşılanmamalıdır.
+
+Uydu İptali Sonrası Tekil İnternet
+Nakil ücreti üyeye bildirilir.
+
+ITTP ISP Operasyonları → Nakil ekranları kullanılır.
+
+Hata alınması halinde 712 – ISP/Adres Değişikliği Talep kaydı açılır.
+
+Kayda mutlaka:
+
+Yeni adres
+
+Güncel BBK bilgisi
+eklenmelidir.
+
+11. Fiber Dönüşüm
+Fiber dönüşüm işlemleri yalnızca Broadband ekipleri tarafından yapılmalıdır.
+
+Genel Kurallar
+Mevcut taahhüt ve aylık faturalama, dönüşüm kampanyası kapsamında değiştirilmez.
+
+Üyenin açık arıza kaydı bulunması dönüşüme engel değildir.
+
+Mevcut DSL hızı esas alınır.
+
+16/24/35 Mbps kullanan üyelerde Fiber hız 35 Mbps olarak tanımlanır.
+
+50 Mbps → 50 Mbps
+
+75 Mbps → 75 Mbps
+
+100 Mbps → 100 Mbps
+
+Üye daha yüksek hız talep ederse mevcut dönüşüm kampanyasının taahhüt/faturalama koşullarının değişmediği ve farklı hız seçenekleri için taahhüt sonrasında başvurabileceği bilgisi verilmelidir.
+
+Fiber Dönüşümde Yenileme
+Yenileme teklifi bulunmayan ve taahhüdü devam eden üyelerde ISP Dönüşüm Operasyonu kullanılır.
+
+Yenileme teklifi veya taahhüt bitişi bulunan üyelerde önce Hemen Kapat ile yenileme, ardından Fiber dönüşüm yapılır.
+
+Dönüşüm öncesinde gerekli fatura kontrolü yapılmalıdır.
+
+Tam aylık faturası bulunmayan üyelerde dönüşüm, sonraki tam aylık fatura çıktıktan sonra yapılmalıdır.
+
+Fiber Dönüşüm Gecikmesi
+Teknik/süreç kaynaklı olarak kurulum yapılamaz veya süreç 30 gün ve üzeri uzarsa cayma bedelsiz iptal hakkı oluşabilir.
+
+İşlemlerin uzaması halinde 1240 – ISP/Aktivasyon Hızlandırma kaydı açılabilir.
+
+12. Modem İade Süreci
+Altyapı geçişli nakillerde modem değişiyorsa eski modem mutlaka iade edilmelidir.
+
+GeçişEski Modem İadesi
+Fiber → FiberMNG/DHL kargo
+Fiber → DSLMNG/DHL kargo
+DSL → FiberDigiturk bayisi
+DSL → DSLModem değişmediği için iade yok
+
+Modem iade bilgisi verilen her üyeye:
+
+979 – EKİPMAN İADE BİLGİSİ kaydı açılmalıdır.
+
+İade Süresi
+Üyeye eski modemin 60 gün içerisinde iade edilmesi gerektiği bildirilmelidir.
+
+60 gün içerisinde iade edilmezse modem bedeli faturaya yansıtılır.
+
+Modem Bedeli İtirazı
+Üye, modemin Türk Telekom ekipleri tarafından alındığını belirtiyorsa:
+
+2150 – Faturalanan Ekipman Bedeline İtiraz kaydı açılmalıdır.
+
+Üye modemi iade ettiğini belirtiyorsa gönderim/teslim bilgileri kontrol edilmelidir.
+
+İade edilen modemler sistemden yaklaşık 24–48 saat içerisinde düşer ve gerekli fatura düzenlemesi otomatik olarak yapılır.
+
+13. Fatura ve İade İşlemleri
+Fatura açık ve ödenmemişse, modem sistemden düştüğünde ilgili faturada düzenleme yapılabilir.
+
+Fatura ödenmişse ve sistemde kart bilgisi mevcutsa iade yapılabilir.
+
+Sistemsel iade yapılamıyorsa hesap bilgileri alınarak 1406 kaydı açılır.
+
+Tüzel üyelerde gerekli durumlarda iade faturası/işletme kapanış belgesi talep edilmelidir.
+
+14. Eski Üyelik Numarası
+Nakil sonrasında bazı üyeliklerde yeni üye numarası oluşabilir.
+
+Karşılama ekranında bulunan “Eski Üyelik Numarası” butonu üzerinden:
+
+Eski üye numarası
+
+Eski üyeliğe ait fatura/borç bilgileri
+
+görüntülenebilir.
+
+Bu kayıt, üyenin hizmet almasına engel değildir. Teknik problem bildiren üyelerde standart teknik destek adımları uygulanmalıdır.
+
+15. PSTN Uyarısı
+PSTN, geleneksel sabit telefon hattıdır ve Digiturk tarafından sunulan bir hizmet değildir.
+
+Nakil sırasında PSTN uyarısı alınması halinde:
+
+İnternet portunun sabit telefon hattı üzerinde olduğu üyeye açıklanır.
+
+Üyenin PSTN hizmetini aldığı firma ile iletişime geçmesi istenir.
+
+Öncelikle sabit telefon hattının naklinin tamamlanması gerektiği belirtilir.
+
+PSTN nakli tamamlandıktan sonra İnternet nakli için tekrar başvurması istenir.
+
+16. Kullanılacak Kayıtlar – Hızlı Referans
+DurumAçılacak Kayıt
+Nakil işlemi sırasında hata712 – Nakil Adres Değişikliği
+İnternet hakkında bilgi verildi, nakil başlatılmadıBB/TALEP_FCR → Nakil hakkında bilgi verildi
+İnternet aktivasyon/nakil süreci uzuyor1240 – ISP/Aktivasyon Hızlandırma
+Modem iade bilgisi verildi979 – Ekipman İade Bilgisi
+Modem bedeline itiraz2150 – Faturalanan Ekipman Bedeline İtiraz
+Sistemsel para iadesi yapılamıyor1406 – İade Talebi
+Bundle → Tekil İnternet naklinde hata712 – ISP/Adres Değişikliği Talep
+
+17. Müşteri Temsilcisi İçin Nakil Kontrol Listesi
+Nakil talebi alınırken sırasıyla:
+
+Üye doğrulaması yapılır.
+
+3 güvenlik bilgisi alınır.
+
+Yeni adres bilgisi alınır.
+
+BBK üzerinden altyapı kontrol edilir.
+
+Altyapıya göre nakil türü belirlenir:
+
+DSL → DSL
+
+DSL → Fiber
+
+Fiber → DSL
+
+Fiber → Fiber
+
+Uygun paket/kampanya kontrol edilir.
+
+NOR/YLN ayrımı kontrol edilir.
+
+Gerekliyse yeni paket eklenir.
+
+Nakil ücreti üyeye bildirilir.
+
+Teknik servis süreci hakkında bilgi verilir.
+
+Gerekliyse modem/çanak iade veya kurulum bilgisi paylaşılır.
+
+Nakil işlemi başlatılır.
+
+Hata alınırsa 712 kaydı açılır.
+
+Modem iade bilgisi verildiyse 979 kaydı açılır.
+
+Üyeye işlem süresi ve varsa önemli koşullar aktarılır.
+
+En Kritik Kurallar
+Nakil öncesi:
+Üye doğrula → BBK kontrol et → Altyapıyı belirle → Paket/kampanyayı kontrol et → Ücreti bildir → Nakli başlat.
+
+Nakil sırasında hata:
+712 kaydı.
+
+Modem değişti:
+İade yöntemini bildir + 979 kaydı.
+
+Altyapı nedeniyle hizmet verilemiyor:
+Şartları kontrol et → İkametgâh belgesi ile cayma bedelsiz iptal sürecini başlat.
+
+Bundle'dan İnternet iptali sonrası Uydu nakli:
+Önce DIGI_ISP_NAKIL evraklı iptal süreci tamamlanmalı, ardından Uydu nakli yapılmalıdır.
+
+Nakil hakkında sadece bilgi verildi ve işlem başlatılmadı:
+BB/TALEP_FCR → “Nakil hakkında bilgi verildi”
