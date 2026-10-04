@@ -6,7 +6,7 @@ import { authApi } from './server/auth.ts'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/digiturk-internet-bilgi-portali/',
+  base: '/myproject/',
   plugins: [react(), authApi(), knowledgeApi(), chatApi()],
   server: { fs: { deny: ['.env', '.env.*', '*.{crt,pem}', '.data/**', '**/auth.sqlite*'] } },
 })
